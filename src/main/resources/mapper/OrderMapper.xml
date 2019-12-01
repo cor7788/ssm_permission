@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.dao.OrderDao">
+
+    <resultMap id="findAllMap" type="order">
+        <association property="product" javaType="product" select="com.example.dao.ProductDao.findById"
+                     column="product_id"/>
+    </resultMap>
+
+    <resultMap id="findByIdMap" type="order">
+        <id property="id" column="id" />
+        <association property="product" javaType="product" select="com.example.dao.ProductDao.findById"
+                     column="product_id"/>
+        <association property="member" javaType="member" select="com.example.dao.MemberDao.findById"
+                     column="member_id"/>
+        <collection property="travellers" ofType="traveller" select="com.example.dao.TravellerDao.findByOrderId"
+                    column="id"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="findAllMap">
+        select *
+        from p_order
+    </select>
+
+    <select id="findById" parameterType="string" resultMap="findByIdMap">
+        select *
+        from p_order
+        where id = #{id}
+    </select>
+</mapper>
