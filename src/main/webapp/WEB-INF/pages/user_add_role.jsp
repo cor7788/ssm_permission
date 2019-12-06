@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>订单列表</title>
+    <title>为用户添加角色</title>
 
     <!-- normalize.css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/normalize.css">
@@ -15,9 +15,10 @@
           href="${pageContext.request.contextPath}/AdminLTE-3.0.1/plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- DataTables -->
+    <!-- Select2 -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/AdminLTE-3.0.1/plugins/select2/css/select2.min.css">
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/AdminLTE-3.0.1/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+          href="${pageContext.request.contextPath}/AdminLTE-3.0.1/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/AdminLTE-3.0.1/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
@@ -37,12 +38,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>订单管理</h1>
+                        <h1>配置角色</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">基础数据</a></li>
-                            <li class="breadcrumb-item active">订单管理</li>
+                            <li class="breadcrumb-item"><a href="#">系统管理</a></li>
+                            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/user">用户管理</a></li>
+                            <li class="breadcrumb-item active">配置角色</li>
                         </ol>
                     </div>
                 </div>
@@ -52,46 +54,33 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
-                <div class="col-12">
-                    <div class="card">
+                <div class="col-6">
+                    <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h3 class="card-title">产品表单</h3>
+                            <h3 class="card-title">为用户添加角色</h3>
                         </div>
-
                         <!-- /.card-header -->
-                        <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>订单编号</th>
-                                    <th>产品名称</th>
-                                    <th>金额</th>
-                                    <th>下单时间</th>
-                                    <th>订单状态</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach items="${pageOrder.list}" var="order">
-                                    <tr>
-                                        <td>${order.id}</td>
-                                        <td>${order.orderNumber}</td>
-                                        <td>${order.product.productName}</td>
-                                        <td>${order.product.productPrice}</td>
-                                        <td>${order.orderTimeStr}</td>
-                                        <td>${order.orderStatusStr}</td>
-                                        <td>
-                                            <a href="${pageContext.request.contextPath}/order/detail?id=${order.id}" class="btn btn-default btn-sm">详情</a>
-                                            <a href="javascript:void(0)" class="btn btn-default btn-sm">修改</a>
-                                            <a href="javascript:void(0)" class="btn btn-default btn-sm">删除</a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
+                        <!-- form start -->
+                        <form role="form" method="post" action="${pageContext.request.contextPath}/user/add_roles">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <input type="hidden" name="userId" value="${userInfo.id}">
+                                    <label for="roles">角色</label>
+                                    <select id="roles" class="select2" name="roleIds" multiple="multiple"
+                                            data-placeholder="选择角色"
+                                            style="width: 100%;">
+                                        <c:forEach items="${roles}" var="pRole">
+                                            <option value="${pRole.id}">${pRole.roleName}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
+                        </form>
                     </div>
                     <!-- /.card -->
                 </div>
@@ -131,13 +120,12 @@
 <script src="${pageContext.request.contextPath}/AdminLTE-3.0.1/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="${pageContext.request.contextPath}/AdminLTE-3.0.1/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- DataTables -->
-<script src="${pageContext.request.contextPath}/AdminLTE-3.0.1/plugins/datatables/jquery.dataTables.js"></script>
-<script src="${pageContext.request.contextPath}/AdminLTE-3.0.1/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<!-- Select2 -->
+<script src="${pageContext.request.contextPath}/AdminLTE-3.0.1/plugins/select2/js/select2.full.min.js"></script>
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/AdminLTE-3.0.1/js/adminlte.min.js"></script>
 <script>
-    $("#example1").DataTable();
+    $('.select2').select2();
 </script>
 </body>
 </html>

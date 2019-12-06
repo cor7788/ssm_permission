@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>订单列表</title>
+    <title>添加角色</title>
 
     <!-- normalize.css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/normalize.css">
@@ -37,12 +37,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>订单管理</h1>
+                        <h1>数据添加</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">基础数据</a></li>
-                            <li class="breadcrumb-item active">订单管理</li>
+                            <li class="breadcrumb-item"><a href="#">首页</a></li>
+                            <li class="breadcrumb-item active">数据添加</li>
                         </ol>
                     </div>
                 </div>
@@ -52,46 +52,32 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
-                <div class="col-12">
-                    <div class="card">
+                <div class="col-6">
+                    <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">产品表单</h3>
+                            <h3 class="card-title">添加角色</h3>
                         </div>
-
                         <!-- /.card-header -->
-                        <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>订单编号</th>
-                                    <th>产品名称</th>
-                                    <th>金额</th>
-                                    <th>下单时间</th>
-                                    <th>订单状态</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach items="${pageOrder.list}" var="order">
-                                    <tr>
-                                        <td>${order.id}</td>
-                                        <td>${order.orderNumber}</td>
-                                        <td>${order.product.productName}</td>
-                                        <td>${order.product.productPrice}</td>
-                                        <td>${order.orderTimeStr}</td>
-                                        <td>${order.orderStatusStr}</td>
-                                        <td>
-                                            <a href="${pageContext.request.contextPath}/order/detail?id=${order.id}" class="btn btn-default btn-sm">详情</a>
-                                            <a href="javascript:void(0)" class="btn btn-default btn-sm">修改</a>
-                                            <a href="javascript:void(0)" class="btn btn-default btn-sm">删除</a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
+                        <!-- form start -->
+                        <form role="form" method="post" action="${pageContext.request.contextPath}/role/add">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="roleName">角色名称</label>
+                                    <input type="text" class="form-control" id="roleName" name="roleName"
+                                           placeholder="角色名称">
+                                </div>
+                                <div class="form-group">
+                                    <label for="roleDesc">角色描述</label>
+                                    <input type="text" class="form-control" id="roleDesc" name="roleDesc"
+                                           placeholder="角色描述">
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
+                        </form>
                     </div>
                     <!-- /.card -->
                 </div>

@@ -64,7 +64,6 @@
     </bean>
 
     <!-- 配置事务通知 -->
-
     <tx:advice id="txAdvice">
         <tx:attributes>
             <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>

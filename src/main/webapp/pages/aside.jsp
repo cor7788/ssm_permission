@@ -1,3 +1,4 @@
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" %>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -18,7 +19,9 @@
                      class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">
+                    <security:authentication property="principal.username"/>
+                </a>
             </div>
         </div>
 
@@ -30,7 +33,7 @@
                      with font-awesome or any other icon font library -->
                 <!-- 首页 -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="${pageContext.request.contextPath}" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                             首页
@@ -39,29 +42,44 @@
                 </li><!-- /首页 -->
 
                 <!-- 系统管理 -->
-                <li class="nav-item has-treeview menu-open">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            系统管理
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Active Page</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Inactive Page</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> <!-- /系统管理 -->
+                <security:authorize access="hasRole('ROLE_ADMIN')">
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                系统管理
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/user" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>用户管理</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/role" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>角色管理</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/permission" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>权限管理</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/log" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>日志管理</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </security:authorize>
+                <!-- /系统管理 -->
 
                 <!-- 基础数据 -->
                 <li class="nav-item has-treeview menu-open">

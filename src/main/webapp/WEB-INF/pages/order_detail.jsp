@@ -22,16 +22,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/AdminLTE-3.0.1/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <style>
-        .fas {
-            line-height: inherit;
-        }
-    </style>
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic_custom.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-    <jsp:include page="header.jsp"/>
-    <jsp:include page="aside.jsp"/>
+    <jsp:include page="../../pages/header.jsp"/>
+    <jsp:include page="../../pages/aside.jsp"/>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

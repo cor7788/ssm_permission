@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>订单列表</title>
+    <title>日志管理</title>
 
     <!-- normalize.css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/normalize.css">
@@ -37,12 +37,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>订单管理</h1>
+                        <h1>日志管理</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">基础数据</a></li>
-                            <li class="breadcrumb-item active">订单管理</li>
+                            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}">首页</a></li>
+                            <li class="breadcrumb-item">系统管理</li>
+                            <li class="breadcrumb-item active">日志管理</li>
                         </ol>
                     </div>
                 </div>
@@ -55,7 +56,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">产品表单</h3>
+                            <h3 class="card-title">日志表单</h3>
                         </div>
 
                         <!-- /.card-header -->
@@ -64,28 +65,24 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>订单编号</th>
-                                    <th>产品名称</th>
-                                    <th>金额</th>
-                                    <th>下单时间</th>
-                                    <th>订单状态</th>
-                                    <th>操作</th>
+                                    <th>访问时间</th>
+                                    <th>用户名</th>
+                                    <th>ip地址</th>
+                                    <th>url</th>
+                                    <th>执行时长</th>
+                                    <th>访问方法</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${pageOrder.list}" var="order">
+                                <c:forEach items="${logList}" var="l">
                                     <tr>
-                                        <td>${order.id}</td>
-                                        <td>${order.orderNumber}</td>
-                                        <td>${order.product.productName}</td>
-                                        <td>${order.product.productPrice}</td>
-                                        <td>${order.orderTimeStr}</td>
-                                        <td>${order.orderStatusStr}</td>
-                                        <td>
-                                            <a href="${pageContext.request.contextPath}/order/detail?id=${order.id}" class="btn btn-default btn-sm">详情</a>
-                                            <a href="javascript:void(0)" class="btn btn-default btn-sm">修改</a>
-                                            <a href="javascript:void(0)" class="btn btn-default btn-sm">删除</a>
-                                        </td>
+                                        <td>${l.id}</td>
+                                        <td>${l.visitTime}</td>
+                                        <td>${l.username}</td>
+                                        <td>${l.ip}</td>
+                                        <td>${l.url}</td>
+                                        <td>${l.executionTime}</td>
+                                        <td>${l.method}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

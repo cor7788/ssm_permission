@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>订单列表</title>
+    <title>用户详情</title>
 
     <!-- normalize.css -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/normalize.css">
@@ -37,12 +37,14 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>订单管理</h1>
+                        <h1>用户详情</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">基础数据</a></li>
-                            <li class="breadcrumb-item active">订单管理</li>
+                            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}">首页</a></li>
+                            <li class="breadcrumb-item">系统管理</li>
+                            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/user">用户管理</a></li>
+                            <li class="breadcrumb-item active">用户详情</li>
                         </ol>
                     </div>
                 </div>
@@ -52,50 +54,41 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">产品表单</h3>
-                        </div>
+                <c:forEach items="${userInfo.roles}" var="role">
+                    <div class="col-6">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h3 class="card-title">${role.roleName}</h3>
+                            </div>
 
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>订单编号</th>
-                                    <th>产品名称</th>
-                                    <th>金额</th>
-                                    <th>下单时间</th>
-                                    <th>订单状态</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach items="${pageOrder.list}" var="order">
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table_role table table-bordered table-striped">
+                                    <thead>
                                     <tr>
-                                        <td>${order.id}</td>
-                                        <td>${order.orderNumber}</td>
-                                        <td>${order.product.productName}</td>
-                                        <td>${order.product.productPrice}</td>
-                                        <td>${order.orderTimeStr}</td>
-                                        <td>${order.orderStatusStr}</td>
-                                        <td>
-                                            <a href="${pageContext.request.contextPath}/order/detail?id=${order.id}" class="btn btn-default btn-sm">详情</a>
-                                            <a href="javascript:void(0)" class="btn btn-default btn-sm">修改</a>
-                                            <a href="javascript:void(0)" class="btn btn-default btn-sm">删除</a>
-                                        </td>
+                                        <th>ID</th>
+                                        <th>权限名称</th>
+                                        <th>权限 URL</th>
                                     </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${role.permissions}" var="permission">
+                                        <tr>
+                                            <td>${permission.id}</td>
+                                            <td>${permission.permissionName}</td>
+                                            <td>${permission.permissionUrl}</td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card-body -->
+                        <!-- /.card -->
+
                     </div>
-                    <!-- /.card -->
-                </div>
-                <!-- /.col -->
+                    <!-- /.col -->
+                </c:forEach>
             </div>
             <!-- /.row -->
         </section>
@@ -137,7 +130,7 @@
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/AdminLTE-3.0.1/js/adminlte.min.js"></script>
 <script>
-    $("#example1").DataTable();
+    $(".table_role").DataTable();
 </script>
 </body>
 </html>
